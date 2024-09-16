@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import About from './pages/About';
@@ -12,8 +12,9 @@ import Footer from './components/Footer';
 function App() {
   return (
     <BrowserRouter>
-    <Header />
-      
+
+      <Header />
+
       <Routes>
 
         <Route path="/home" element={<Home />} />
