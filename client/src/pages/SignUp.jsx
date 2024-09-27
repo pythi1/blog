@@ -39,6 +39,7 @@ function SignUp() {
       }
       setloading(false);
       if(res.ok){
+        // dispatch(signInSuccess(data));
         navigate('/sign-in');
       }
     } catch (error) {

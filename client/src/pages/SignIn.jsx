@@ -1,14 +1,17 @@
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import { signInstart, signInSuccess, signInFailure } from '../redux/user/userSlice.js';
+import { useDispatch, useSelector } from 'react-redux';
 
 function SignIn() {
 
   const [formdata, setfromdata] = useState({});
-  const [errormessage, setErrormessage] = useState(null);
-  const [loading, setloading] = useState(false);
-
+  // const [errormessage, setErrormessage] = useState(null);
+  // const [loading, setloading] = useState(false);
+  const {loading, error:errormessage} = useSelector(state => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handlechange = (e) => {
     
@@ -23,11 +26,13 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!formdata.email || !formdata.password ){
-      return setErrormessage('please fill out all the fields.')
+      // return setErrormessage('please fill out all the fields.')
+      return dispatch(signInFailure('please fill out all the fields.'))
     }
     try {
-      setloading(true);
-      setErrormessage(null);
+      dispatch(signInstart());
+      // setloading(true);
+      // setErrormessage(null);
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -35,15 +40,18 @@ function SignIn() {
       })
       const data = await res.json();
       if(data.success === false){
-        return setErrormessage(data.message);
+        // return setErrormessage(data.message);
+        dispatch(signInFailure(data.message));
       }
-      setloading(false);
+      // setloading(false);
       if(res.ok){
+        dispatch(signInSuccess(data));
         navigate('/home');
       }
     } catch (error) {
-      setErrormessage(error.message);
-      setloading(false);
+      dispatch(signInFailure(error.message));
+      // setErrormessage(error.message);
+      // setloading(false);
     }
   };
   
@@ -69,7 +77,7 @@ function SignIn() {
         <div className='flex-1'>
           {/* rightside */}
           <form className='flex flex-col gap-4 ' onSubmit={handleSubmit} >
-          
+
             <div>
               <Label value='Email' />
               <TextInput
@@ -100,7 +108,7 @@ function SignIn() {
 
           <div className='flex gap-2 text-sm mt-5'>
             <span>Don't Have an account ? </span>
-            <Link to='/sign-up' className='text-blue-500' >signup</Link>
+            <Link to='/sign-up' className='text-blue-500' >signUp</Link>
           </div>
 
           {
