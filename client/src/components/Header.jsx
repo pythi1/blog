@@ -42,9 +42,9 @@ function Header() {
 
                 <Navbar.Collapse >
                         <Navbar.Link active={path === "/home"} >
-                            <Link to='/home' className='font-bold' >
+                            {/* <Link to='/home' className='font-bold' > */}
                                 Home
-                            </Link>
+                            {/* </Link> */}
                         </Navbar.Link>
 
                         <Navbar.Link active={path === "/about"} >

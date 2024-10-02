@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { signInstart, signInSuccess, signInFailure } from '../redux/user/userSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
+import OAuth from '../components/oAuth.jsx';
 
 function SignIn() {
 
@@ -18,7 +19,7 @@ function SignIn() {
     setfromdata({ ...formdata, [e.target.id]: e.target.value.trim() });
   }
 
-  console.log(formdata);
+  // console.log(formdata);
 
   // **********************************************************************************
                   // form submit function //
@@ -103,6 +104,8 @@ function SignIn() {
                 loading ? <><Spinner size='sm' /> <span className='pl-3' >loading...</span></> : <span>Sign In</span>
               }
             </Button>
+              
+            <OAuth />
 
           </form>
 

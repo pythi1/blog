@@ -1,6 +1,7 @@
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import OAuth from '../components/oAuth';
 
 function SignUp() {
 
@@ -106,6 +107,8 @@ function SignUp() {
                 loading ? <><Spinner size='sm' /> <span className='pl-3' >loading...</span></> : <span>Sign Up</span>
               }
             </Button>
+
+            <OAuth />
 
           </form>
 
